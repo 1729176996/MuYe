@@ -1,0 +1,45 @@
+<style type="text/css">
+	*{
+		font-size: 1.3em;
+	}
+</style>
+
+<div id="main">
+	<div class="item" v-for="(item,index) of list" :key="index" @click="clickItem(item)">{{item.name}}</div>
+</div>
+
+<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/viewer-jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/utils.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		var vm = new Vue({
+			el: "#main",
+			data() {
+				return {
+					list:[],
+				};
+			},
+			mounted() {
+				this.init();
+			},
+			methods: {
+				init(){
+					this.list=[
+						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+					];
+				},
+				clickItem(item){
+					console.log(item)
+					//传递消息去调用父页面的方法
+					var post = {type:'openVideo',data:item};
+					window.parent.postMessage(post,'*');
+				},
+			},
+		})
+	});
+</script>

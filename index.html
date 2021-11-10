@@ -1,0 +1,123 @@
+<link rel="stylesheet" type="text/css" href="css/viewer.min.css"/>
+<style type="text/css">
+	.main{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: #FFFFFF;
+	}
+	.body{
+		flex: 1;
+		width: 100%;
+	}
+	.body iframe{
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+	.footer{
+		width: 100%;
+		height: 2em;
+		font-size: 3em;
+		display: flex;
+		border-top: 1px solid #000000;
+	}
+	.tab{
+		flex: 1;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-left: 1px solid #000000;
+	}
+	.tab:nth-child(1){
+		border-left: none;
+	}
+	.active{
+		background: #F2F2F2;
+	}
+	
+	.pop{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		background: #FFFFFF;
+	}
+	.pop iframe{
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+</style>
+
+<div class="main" id="main">
+	<div class="body">
+		<iframe :src="iframeSrc"></iframe>
+	</div>
+	<div class="footer">
+		<div class="tab" :class="{'active':tab_name===tab.name}" v-for="(tab,index) of tabs" :key="index" @click="clickTab(tab)">{{tab.name}}</div>
+	</div>
+	<div class="pop" v-show="popSrc||popSrc===0">
+		<iframe :src="popSrc"></iframe>
+	</div>
+</div>
+
+<script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/viewer-jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/utils.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var vm=null;
+	$(function() {
+		vm = new Vue({
+			el: "#main",
+			data() {
+				return {
+					tabs:[
+						{name:'首页',src:'videoList.html'},
+						{name:'我的',src:'me.html'},
+					],
+					tab_name:'',
+					iframeSrc:'',
+					popSrc:'',
+				};
+			},
+			mounted() {
+				this.tab_name = '';
+				this.iframeSrc = '';
+				this.popSrc = '';
+				this.clickTab(this.tabs[0]);
+			},
+			methods: {
+				clickTab(tab){
+					this.tab_name = tab.name;
+					this.iframeSrc = tab.src;
+				},
+				openVideo(item){
+					//alert('openVideo');
+					if(item.url||item.url===0){
+						this.popSrc = 'video.html';
+					}else{
+						this.popSrc = '';
+					}
+				},
+			},
+		});
+		//监听消息，收到子页面传的消息
+		window.addEventListener("message", function(event){
+			var obj = event.data;
+			if(obj.type == 'openVideo'){
+				vm.openVideo(obj.data)
+			}
+		})
+	});
+</script>
