@@ -5,7 +5,7 @@
 </style>
 
 <div id="main">
-	<div class="item" v-for="(item,index) of list" :key="index" @click="clickItem(item)">{{item.name}}</div>
+	<div class="item" v-for="(item,index) of list" :key="index" @click="clickItem(item)">{{item.title}}</div>
 </div>
 
 <script src="js/jquery-3.5.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -28,9 +28,9 @@
 			methods: {
 				init(){
 					this.list=[
-						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
-						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
-						{name:'武汉加油中国加油',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+						{title:'武汉加油中国加油',content:'测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+						{title:'武汉加油中国加油',content:'测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
+						{title:'武汉加油中国加油',content:'测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试',url:'https://stream7.iqilu.com/10339/upload_transcode/202002/18/20200218114723HDu3hhxqIT.mp4'},
 					];
 				},
 				clickItem(item){

@@ -105,10 +105,13 @@
 				openVideo(item){
 					//alert('openVideo');
 					if(item.url||item.url===0){
-						this.popSrc = 'video.html';
+						this.popSrc = 'video.html?url='+item.url+'&title='+item.title+'&content='+item.content;
 					}else{
 						this.popSrc = '';
 					}
+				},
+				closeVideo(){
+					this.popSrc = '';
 				},
 			},
 		});
@@ -117,6 +120,8 @@
 			var obj = event.data;
 			if(obj.type == 'openVideo'){
 				vm.openVideo(obj.data)
+			}else if(obj.type == 'closeVideo'){
+				vm.closeVideo()
 			}
 		})
 	});
